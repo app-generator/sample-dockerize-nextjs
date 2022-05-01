@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  web:
+    image: traefik:latest
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - --entrypoints.web.address=:80
+      - --providers.docker=true
+      - --accesslog.filepath=/logs/access.log
+    labels:
+      - traefik.enable=false
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: 18
+        NODE_ENV: production
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.app.entrypoints=web
+      - traefik.http.routers.app.rule=HostRegexp(`localhost`)
+      - traefik.http.routers.app.service=app
+      - traefik.http.services.app.loadbalancer.server.port=3000
