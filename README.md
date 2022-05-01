@@ -6,10 +6,37 @@ This is a hello world app that is written in Javascript using [Next.js](https://
 
 Next.js uses [Node.js](https://nodejs.org/) to transpile the source code into Javascript code that can run in client's web browser and to run server-side code. Make sure to have Node.js installed and its package manager, `npm`.
 
-Then execute the `create-react-app` script to bootstrap a starter Next app.
+### Installing Node.js
+
+#### Installing Nvm
+
+Refer to the [Nvm](https://github.com/nvm-sh/nvm#install--update-script) documentation for how to install Nvm.
+
+#### Installing Node.js
+
+It's a good practice to install the LTS version of Node.js.
+
+```
+nvm install --lts
+```
+
+#### Generating a Next project
 
 ```
 npx create-next-app project-name
+```
+
+## Code-base structure
+
+```
+project-name/           # The project's root directory
+├───pages/              # Next.js template and API directory
+│   └───api/            # The API directory
+├───public/             # Static files directory
+├───styles/             # The project's source directory
+├───next.config.js      # Next.js configuration file
+├───package-lock.json   # Dependency lock file
+└───package.json        # Dependency file
 ```
 
 ## Packaging
@@ -21,13 +48,13 @@ This is packaged by using the [Node.js container image](https://hub.docker.com/_
 ### Development
 
 ```
-docker compose up --build
+docker-compose up --build
 ```
 
 ### Production
 
 ```
-docker compose --file docker-compose.prod.yml up --build
+docker-compose --file docker-compose.prod.yml up --build
 ```
 
 ## Customizing
